@@ -31,6 +31,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/skills").permitAll() // skills list is public
+                        .requestMatchers("/ws/**").permitAll() // websocket (for later)
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

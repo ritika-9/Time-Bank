@@ -1,21 +1,17 @@
 package com.timebank.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "help_requests")
+@Table(name = "sessions")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class HelpRequest {
+public class Session {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,26 +27,31 @@ public class HelpRequest {
     @JoinColumn(name = "skill_id")
     private Skill skill;
 
+    // 1-10 credits, set by poster
     @Column(nullable = false)
-    private Double hoursRequired;
+    private Double credits;
+
+    // duration in hours
+    @Column(nullable = false)
+    private Double duration;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private RequestStatus status = RequestStatus.OPEN;
+    private SessionStatus status = SessionStatus.AVAILABLE;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by", nullable = false)
-    private User createdBy;
+    @JoinColumn(name = "offered_by", nullable = false)
+    private User offeredBy;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "accepted_by")
-    private User acceptedBy; // nullable until someone accepts
+    @JoinColumn(name = "booked_by")
+    private User bookedBy; // null until someone books
+
+    private LocalDateTime scheduledTime; // set during booking
 
     @CreationTimestamp
-    @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    // Add after status field
-    @Column(nullable = false)
-    private Boolean creditsReserved = false;
+    // auto expire after 7 days
+    private LocalDateTime expiresAt;
 }

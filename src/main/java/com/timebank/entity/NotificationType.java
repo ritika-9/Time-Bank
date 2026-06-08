@@ -1,0 +1,12 @@
+package com.timebank.entity;
+
+public enum NotificationType {
+    APPLICATION_RECEIVED,
+    APPLICATION_ACCEPTED,
+    APPLICATION_REJECTED,
+    SESSION_BOOKED,
+    SESSION_CONFIRMED,
+    CREDITS_RECEIVED,
+    REQUEST_COMPLETED,
+    SESSION_COMPLETED
+}

@@ -49,4 +49,19 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<UserSkill> userSkills;
+
+    @Column(columnDefinition = "TEXT")
+    private String bio;
+
+    // availability stored as simple string
+// example: "MON,WED,FRI|MORNING,EVENING"
+    @Column
+    private String availability;
+
+    @Column(nullable = false, columnDefinition = "DOUBLE DEFAULT 0.0")
+    private Double reservedCredits = 0.0; // for escrow system
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, columnDefinition = "VARCHAR(255) DEFAULT 'USER'")
+    private UserRole role = UserRole.USER; // for admin panel
 }

@@ -30,7 +30,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         // grab the Authorization header from the request
         String authHeader = request.getHeader("Authorization");
-
+        System.out.println("AUTH HEADER: " + authHeader);
         // if no token present, just move on (public routes)
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
@@ -39,6 +39,8 @@ public class JwtFilter extends OncePerRequestFilter {
 
         // strip "Bearer " prefix to get the raw token
         String token = authHeader.substring(7);
+        System.out.println("TOKEN VALID: " + jwtUtil.isTokenValid(token));
+        System.out.println("EMAIL: " + jwtUtil.extractEmail(token));
 
         if (jwtUtil.isTokenValid(token)) {
             String email = jwtUtil.extractEmail(token);

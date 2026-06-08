@@ -4,6 +4,7 @@ import com.timebank.dto.AuthResponse;
 import com.timebank.dto.LoginRequest;
 import com.timebank.dto.RegisterRequest;
 import com.timebank.entity.User;
+import com.timebank.entity.UserRole;
 import com.timebank.repository.UserRepository;
 import com.timebank.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +34,9 @@ public class AuthService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .credits(5.0)
+                .reservedCredits(0.0)
                 .rating(0.0)
+                .role(UserRole.USER)
                 .build();
 
         userRepository.save(user);
