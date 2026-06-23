@@ -207,4 +207,18 @@ public class SessionService {
                 .expiresAt(session.getExpiresAt())
                 .build();
     }
+
+    public SessionResponse getSessionById(Long id) {
+        Session session = sessionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Session not found"));
+        return mapToResponse(session);
+    }
+
+    public List<SessionResponse> getMySessions() {
+        User currentUser = userService.getCurrentUser();
+        return sessionRepository.findByOfferedBy(currentUser)
+                .stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
+    }
 }

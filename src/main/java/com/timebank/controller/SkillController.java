@@ -11,7 +11,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/skills")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins ={ "http://localhost:4200", "http://127.0.0.1:4201"})
 public class SkillController {
 
     private final SkillService skillService;

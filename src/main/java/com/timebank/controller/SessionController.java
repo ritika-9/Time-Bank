@@ -14,7 +14,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/sessions")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins ={ "http://localhost:4200", "http://127.0.0.1:4201"})
 public class SessionController {
 
     private final SessionService sessionService;
@@ -47,5 +47,14 @@ public class SessionController {
     @PutMapping("/{id}/complete")
     public ResponseEntity<SessionResponse> completeSession(@PathVariable Long id) {
         return ResponseEntity.ok(sessionService.completeSession(id));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<SessionResponse> getSessionById(@PathVariable Long id) {
+        return ResponseEntity.ok(sessionService.getSessionById(id));
+    }
+    @GetMapping("/my")
+    public ResponseEntity<List<SessionResponse>> getMySessions() {
+        return ResponseEntity.ok(sessionService.getMySessions());
     }
 }

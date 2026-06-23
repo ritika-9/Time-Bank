@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/requests")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins ={ "http://localhost:4200", "http://127.0.0.1:4201"})
 public class HelpRequestController {
 
     private final HelpRequestService helpRequestService;
@@ -73,4 +73,10 @@ public class HelpRequestController {
     public ResponseEntity<List<Transaction>> getMyTransactions() {
         return ResponseEntity.ok(helpRequestService.getMyTransactions());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<HelpRequestResponse> getRequestById(@PathVariable Long id) {
+        return ResponseEntity.ok(helpRequestService.getRequestById(id));
+    }
+
 }

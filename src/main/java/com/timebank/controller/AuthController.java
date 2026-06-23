@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200") // allows Angular to call this
+@CrossOrigin(origins ={ "http://localhost:4200", "http://127.0.0.1:4201"})// allows Angular to call this
 public class AuthController {
 
     private final AuthService authService;

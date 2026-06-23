@@ -350,4 +350,10 @@ public class HelpRequestService {
                 .appliedAt(app.getAppliedAt())
                 .build();
     }
+
+    public HelpRequestResponse getRequestById(Long id) {
+        HelpRequest request = helpRequestRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Request not found"));
+        return mapToResponse(request);
+    }
 }
